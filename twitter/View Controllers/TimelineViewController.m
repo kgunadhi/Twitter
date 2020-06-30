@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *tweets;
+@property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 @end
 
@@ -26,7 +27,14 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-    // Get timeline
+    [self fetchTweets];
+    
+    self.refreshControl = [[UIRefreshControl alloc] init];
+    [self.refreshControl addTarget:self action:@selector(fetchTweets) forControlEvents:UIControlEventValueChanged];
+    [self.tableView insertSubview:self.refreshControl atIndex:0];
+}
+
+- (void)fetchTweets {
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
@@ -35,6 +43,7 @@
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
+        [self.refreshControl endRefreshing];
     }];
 }
 
@@ -60,13 +69,9 @@
     cell.retweetLabel.text = [@(tweet.retweetCount) stringValue];
     cell.favoriteLabel.text = [@(tweet.favoriteCount) stringValue];
     
-//    NSString *const baseURLString = @"https://image.tmdb.org/t/p/w500";
-//    NSString *profileURLString = tweet[@"profile_image_url_https"];
-//    NSString *fullProfileURLString = [baseURLString stringByAppendingString:profileURLString];
-//
-//    NSURL *profileURL = [NSURL URLWithString:fullProfileURLString];
-//    cell.profileView.image = nil;
-//    [cell.profileView setImageWithURL:profileURL];
+    NSURL *profileURL = [NSURL URLWithString:tweet.user.profileImage];
+    cell.profileView.image = nil;
+    [cell.profileView setImageWithURL:profileURL];
     cell.profileView.layer.cornerRadius = 7;
     cell.layer.cornerRadius = 7;
     cell.layer.masksToBounds = YES;
