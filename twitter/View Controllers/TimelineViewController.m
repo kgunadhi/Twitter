@@ -8,8 +8,13 @@
 
 #import "TimelineViewController.h"
 #import "APIManager.h"
+#import "TweetCell.h"
+#import "UIImageView+AFNetworking.h"
 
-@interface TimelineViewController ()
+@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *tweets;
 
 @end
 
@@ -18,14 +23,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
     // Get timeline
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
-            for (NSDictionary *dictionary in tweets) {
-                NSString *text = dictionary[@"text"];
-                NSLog(@"%@", text);
-            }
+            self.tweets = (NSMutableArray *)tweets;
+            [self.tableView reloadData];
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -36,6 +42,38 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return self.tweets.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
+    
+    Tweet *tweet = self.tweets[indexPath.row];
+    cell.tweet = tweet;
+    cell.nameLabel.text = tweet.user.name;
+    cell.screenNameLabel.text = tweet.user.screenName;
+    cell.dateLabel.text = tweet.createdAtString;
+    cell.tweetTextLabel.text = tweet.text;
+    cell.retweetLabel.text = [@(tweet.retweetCount) stringValue];
+    cell.favoriteLabel.text = [@(tweet.favoriteCount) stringValue];
+    
+//    NSString *const baseURLString = @"https://image.tmdb.org/t/p/w500";
+//    NSString *profileURLString = tweet[@"profile_image_url_https"];
+//    NSString *fullProfileURLString = [baseURLString stringByAppendingString:profileURLString];
+//
+//    NSURL *profileURL = [NSURL URLWithString:fullProfileURLString];
+//    cell.profileView.image = nil;
+//    [cell.profileView setImageWithURL:profileURL];
+    cell.profileView.layer.cornerRadius = 7;
+    cell.layer.cornerRadius = 7;
+    cell.layer.masksToBounds = YES;
+    
+    return cell;
+}
+
 
 /*
 #pragma mark - Navigation
