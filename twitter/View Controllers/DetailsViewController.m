@@ -7,8 +7,19 @@
 //
 
 #import "DetailsViewController.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface DetailsViewController ()
+@property (weak, nonatomic) IBOutlet UIImageView *profileView;
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tweetTextLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *retweetLabel;
+@property (weak, nonatomic) IBOutlet UILabel *favoriteLabel;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 
 @end
 
@@ -16,7 +27,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.nameLabel.text = self.tweet.user.name;
+    self.screenNameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
+    self.dateLabel.text = self.tweet.createdAtString;
+    self.tweetTextLabel.text = self.tweet.text;
+    self.retweetButton.selected = self.tweet.retweeted;
+    self.retweetLabel.text = [@(self.tweet.retweetCount) stringValue];
+    self.favoriteButton.selected = self.tweet.favorited;
+    self.favoriteLabel.text = [@(self.tweet.favoriteCount) stringValue];
+    
+    self.profileView.image = nil;
+    if (self.tweet.user.profileImage != nil) {
+        [self.profileView setImageWithURL:self.tweet.user.profileImage];
+    }
+    self.profileView.layer.cornerRadius = 7;
 }
 
 /*

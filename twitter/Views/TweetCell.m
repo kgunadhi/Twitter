@@ -28,7 +28,7 @@
     
     self.nameLabel.text = self.tweet.user.name;
     self.screenNameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
-    self.dateLabel.text = [@"· " stringByAppendingString:self.tweet.createdAtString];
+    self.dateLabel.text = [@"· " stringByAppendingString:self.tweet.relativeTimeString];
     self.tweetTextLabel.text = self.tweet.text;
     self.retweetButton.selected = self.tweet.retweeted;
     self.retweetLabel.text = [@(self.tweet.retweetCount) stringValue];
@@ -40,8 +40,6 @@
         [self.profileView setImageWithURL:self.tweet.user.profileImage];
     }
     self.profileView.layer.cornerRadius = 7;
-    self.layer.cornerRadius = 7;
-    self.layer.masksToBounds = YES;
 }
 
 - (IBAction)didTapFavorite:(id)sender {
