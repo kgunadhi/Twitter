@@ -30,7 +30,9 @@
     self.screenNameLabel.text = [@"@" stringByAppendingString:self.tweet.user.screenName];
     self.dateLabel.text = [@"· " stringByAppendingString:self.tweet.createdAtString];
     self.tweetTextLabel.text = self.tweet.text;
+    self.retweetButton.selected = self.tweet.retweeted;
     self.retweetLabel.text = [@(self.tweet.retweetCount) stringValue];
+    self.favoriteButton.selected = self.tweet.favorited;
     self.favoriteLabel.text = [@(self.tweet.favoriteCount) stringValue];
     
     self.profileView.image = nil;
