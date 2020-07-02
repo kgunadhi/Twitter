@@ -37,6 +37,12 @@
     self.favoriteButton.selected = self.tweet.favorited;
     self.favoriteLabel.text = [@(self.tweet.favoriteCount) stringValue];
     
+    [self.nameLabel sizeToFit];
+    [self.screenNameLabel sizeToFit];
+    [self.dateLabel sizeToFit];
+    [self.retweetLabel sizeToFit];
+    [self.favoriteLabel sizeToFit];
+    
     self.profileView.image = nil;
     if (self.tweet.user.profileImage != nil) {
         [self.profileView setImageWithURL:self.tweet.user.profileImage];
