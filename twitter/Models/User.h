@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 // MARK: Properties
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *screenName;
-@property (nonatomic, strong) NSString *profileImage;
+@property (nonatomic, strong) NSURL *profileImage;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

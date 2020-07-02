@@ -102,18 +102,6 @@
                                                     <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="reply-icon-1" translatesAutoresizingMaskIntoConstraints="NO" id="8eg-QO-EJq">
-                                                    <rect key="frame" x="84" y="118" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="retweet-icon-1" translatesAutoresizingMaskIntoConstraints="NO" id="ySf-51-CPI">
-                                                    <rect key="frame" x="169" y="118" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="favor-icon-1" translatesAutoresizingMaskIntoConstraints="NO" id="Vue-xS-f75">
-                                                    <rect key="frame" x="254" y="118" width="25" height="25"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" fixedFrame="YES" image="message-icon-1" translatesAutoresizingMaskIntoConstraints="NO" id="oFu-gA-M5n">
                                                     <rect key="frame" x="339" y="118" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -139,18 +127,41 @@
                                                     <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBc-TH-DLL">
+                                                    <rect key="frame" x="84" y="118" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="reply-icon-1"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNG-He-42v">
+                                                    <rect key="frame" x="175" y="118" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="retweet-icon-1"/>
+                                                    <state key="selected" image="retweet-icon-green-1"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="1BI-ca-ZRA" eventType="touchUpInside" id="gVC-gR-GkV"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="92r-jZ-nC0">
+                                                    <rect key="frame" x="262" y="118" width="25" height="25"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="favor-icon-1"/>
+                                                    <state key="selected" image="favor-icon-red-1"/>
+                                                    <connections>
+                                                        <action selector="didTapFavorite:" destination="1BI-ca-ZRA" eventType="touchUpInside" id="wBN-eA-fhh"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="dateLabel" destination="7ts-Fh-q2L" id="B3I-fS-FPE"/>
+                                            <outlet property="favoriteButton" destination="92r-jZ-nC0" id="8ik-Gc-96D"/>
                                             <outlet property="favoriteLabel" destination="wSt-4H-boQ" id="JxF-E0-F4O"/>
-                                            <outlet property="favoriteView" destination="Vue-xS-f75" id="WTg-Ih-kfZ"/>
                                             <outlet property="messageView" destination="oFu-gA-M5n" id="kAT-ZE-9cD"/>
                                             <outlet property="nameLabel" destination="333-7f-WPS" id="bVj-yh-Uok"/>
                                             <outlet property="profileView" destination="2hT-ZL-AqG" id="tat-mC-J0y"/>
-                                            <outlet property="replyView" destination="8eg-QO-EJq" id="24g-2d-g1v"/>
+                                            <outlet property="replyButton" destination="kBc-TH-DLL" id="hBU-cm-T7d"/>
+                                            <outlet property="retweetButton" destination="hNG-He-42v" id="n27-vv-FB7"/>
                                             <outlet property="retweetLabel" destination="fPK-Vp-xh8" id="MeB-7y-bOE"/>
-                                            <outlet property="retweetView" destination="ySf-51-CPI" id="qaU-eM-aKv"/>
                                             <outlet property="screenNameLabel" destination="hVm-3B-Q8m" id="D2q-5N-tbK"/>
                                             <outlet property="tweetTextLabel" destination="EAR-YS-X2j" id="5nL-Dy-Rk0"/>
                                         </connections>
@@ -267,8 +278,10 @@
         <image name="close-icon" width="26" height="24"/>
         <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon-1" width="30" height="30"/>
+        <image name="favor-icon-red-1" width="30" height="30"/>
         <image name="message-icon-1" width="30" height="30"/>
         <image name="reply-icon-1" width="30" height="30"/>
         <image name="retweet-icon-1" width="30" height="30"/>
+        <image name="retweet-icon-green-1" width="30" height="30"/>
     </resources>
 </document>

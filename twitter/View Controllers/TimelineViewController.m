@@ -61,21 +61,7 @@
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     
-    Tweet *tweet = self.tweets[indexPath.row];
-    cell.tweet = tweet;
-    cell.nameLabel.text = tweet.user.name;
-    cell.screenNameLabel.text = tweet.user.screenName;
-    cell.dateLabel.text = tweet.createdAtString;
-    cell.tweetTextLabel.text = tweet.text;
-    cell.retweetLabel.text = [@(tweet.retweetCount) stringValue];
-    cell.favoriteLabel.text = [@(tweet.favoriteCount) stringValue];
-    
-    NSURL *profileURL = [NSURL URLWithString:tweet.user.profileImage];
-    cell.profileView.image = nil;
-    [cell.profileView setImageWithURL:profileURL];
-    cell.profileView.layer.cornerRadius = 7;
-    cell.layer.cornerRadius = 7;
-    cell.layer.masksToBounds = YES;
+    cell.tweet = self.tweets[indexPath.row];
     
     return cell;
 }
