@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
+#import "WebViewController.h"
 #import "UIImageView+AFNetworking.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -20,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *tweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+@property (nonatomic, strong) NSURL *tappedUrl;
 
 @end
 
@@ -66,6 +68,15 @@
     
     cell.tweet = self.tweets[indexPath.row];
     
+    // URL detection
+    PatternTapResponder urlTapAction = ^(NSString *tappedString) {
+        self.tappedUrl = [NSURL URLWithString:tappedString];
+        [self performSegueWithIdentifier:@"WebSegue" sender:nil];
+    };
+    [cell.tweetTextLabel enableURLDetectionWithAttributes:
+    @{NSForegroundColorAttributeName:[UIColor systemBlueColor],NSUnderlineStyleAttributeName:[NSNumber
+    numberWithInt:1],RLTapResponderAttributeName:urlTapAction}];
+    
     return cell;
 }
 
@@ -92,6 +103,11 @@
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
+    } else if ([segue.identifier isEqual: @"WebSegue"]) {
+        WebViewController *webViewController = [segue destinationViewController];
+        webViewController.tappedUrl = self.tappedUrl;
+    } else if ([segue.identifier isEqual: @"ReplySegue"]) {
+        
     } else {
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];

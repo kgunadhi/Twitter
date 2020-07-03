@@ -8,7 +8,9 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+#import "WebViewController.h"
 #import "UIImageView+AFNetworking.h"
+#import "ResponsiveLabel.h"
 
 @implementation TweetCell
 
@@ -34,6 +36,16 @@
     self.retweetLabel.text = [@(self.tweet.retweetCount) stringValue];
     self.favoriteButton.selected = self.tweet.favorited;
     self.favoriteLabel.text = [@(self.tweet.favoriteCount) stringValue];
+    
+    // HashTag detection
+    PatternTapResponder hashTagTapAction = ^(NSString *tappedString) {};
+    [self.tweetTextLabel enableHashTagDetectionWithAttributes:
+    @{NSForegroundColorAttributeName:[UIColor systemBlueColor], RLTapResponderAttributeName:hashTagTapAction}];
+    
+    // Username handle detection
+    PatternTapResponder userHandleTapAction = ^(NSString *tappedString){};
+    [self.tweetTextLabel enableUserHandleDetectionWithAttributes:
+    @{NSForegroundColorAttributeName:[UIColor systemBlueColor],RLTapResponderAttributeName:userHandleTapAction}];
     
     self.profileView.image = nil;
     if (self.tweet.user.profileImage != nil) {

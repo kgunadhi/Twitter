@@ -98,7 +98,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAR-YS-X2j">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EAR-YS-X2j" customClass="ResponsiveLabel">
                                                     <rect key="frame" x="79" y="32.5" width="323" height="19.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -142,6 +142,9 @@
                                                         <constraint firstAttribute="height" constant="25" id="lsn-EQ-0AH"/>
                                                     </constraints>
                                                     <state key="normal" image="reply-icon-1"/>
+                                                    <connections>
+                                                        <segue destination="Gm7-Eh-dnR" kind="presentation" identifier="ReplySegue" id="IKV-I5-5DF"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hNG-He-42v">
                                                     <rect key="frame" x="164" y="55.5" width="25" height="25"/>
@@ -220,7 +223,7 @@
                                             <outlet property="retweetButton" destination="hNG-He-42v" id="i09-7S-AHm"/>
                                             <outlet property="retweetLabel" destination="fPK-Vp-xh8" id="MeB-7y-bOE"/>
                                             <outlet property="screenNameLabel" destination="hVm-3B-Q8m" id="D2q-5N-tbK"/>
-                                            <outlet property="tweetTextLabel" destination="EAR-YS-X2j" id="5nL-Dy-Rk0"/>
+                                            <outlet property="tweetTextLabel" destination="EAR-YS-X2j" id="B7X-RU-grU"/>
                                             <segue destination="yeP-Bj-qxo" kind="show" identifier="DetailsSegue" id="5GD-SV-fY5"/>
                                         </connections>
                                     </tableViewCell>
@@ -250,6 +253,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="MZK-AA-vP5" id="R9Q-34-aSI"/>
+                        <segue destination="9xr-Zr-GgI" kind="presentation" identifier="WebSegue" id="RTD-Mc-1dU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oQh-hN-GQg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -289,7 +293,7 @@
                                 <color key="textColor" systemColor="systemGrayColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpD-rn-kim">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="tweet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KpD-rn-kim" customClass="ResponsiveLabel">
                                 <rect key="frame" x="12" y="171" width="390" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="20"/>
                                 <nil key="textColor"/>
@@ -446,12 +450,41 @@
                         <outlet property="retweetButton" destination="1uI-YI-n8X" id="bLp-eS-WfY"/>
                         <outlet property="retweetLabel" destination="kEF-48-u98" id="OuF-5s-ATg"/>
                         <outlet property="screenNameLabel" destination="2jF-Ur-Vhn" id="58Q-DS-U8i"/>
-                        <outlet property="tweetTextLabel" destination="KpD-rn-kim" id="2iI-sm-VzN"/>
+                        <outlet property="tweetTextLabel" destination="KpD-rn-kim" id="ZPO-68-3wx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eyt-M3-sjU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1659" y="726"/>
+            <point key="canvasLocation" x="1229" y="763"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="i3v-ce-qhR">
+            <objects>
+                <viewController storyboardIdentifier="WebViewController" id="9xr-Zr-GgI" customClass="WebViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4yn-0I-t4p">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13K-7q-mnE">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="YWo-gG-dUW"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="13K-7q-mnE" id="owr-Vy-U7n"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CiN-7M-Evv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2221.739130434783" y="762.72321428571422"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="LgP-Kp-AJN">
@@ -539,6 +572,9 @@
             <point key="canvasLocation" x="2465" y="37"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="IKV-I5-5DF"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
         <image name="chevron.down" catalog="system" width="128" height="72"/>
