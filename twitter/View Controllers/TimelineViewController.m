@@ -22,6 +22,8 @@
 @property (nonatomic, strong) NSMutableArray *tweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSURL *tappedUrl;
+@property (nonatomic, strong) NSString *replyScreenName;
+@property (nonatomic, strong) NSString *replyId;
 
 @end
 
@@ -67,6 +69,8 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     
     cell.tweet = self.tweets[indexPath.row];
+    self.replyScreenName = cell.tweet.user.screenName;
+    self.replyId = cell.tweet.idStr;
     
     // URL detection
     PatternTapResponder urlTapAction = ^(NSString *tappedString) {
@@ -107,7 +111,11 @@
         WebViewController *webViewController = [segue destinationViewController];
         webViewController.tappedUrl = self.tappedUrl;
     } else if ([segue.identifier isEqual: @"ReplySegue"]) {
-        
+        UINavigationController *navigationController = [segue destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+        composeController.replyText = [@"@" stringByAppendingString:self.replyScreenName];
+        composeController.replyId = self.replyId;
     } else {
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];

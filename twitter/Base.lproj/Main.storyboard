@@ -528,7 +528,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tweetTextView" destination="8eo-AA-op8" id="hHB-bH-8tz"/>
+                        <outlet property="tweetTextView" destination="8eo-AA-op8" id="nxk-wv-7qX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GhF-XA-WMZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

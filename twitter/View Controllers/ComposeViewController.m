@@ -11,14 +11,16 @@
 
 @interface ComposeViewController ()
 
-@property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
-
 @end
 
 @implementation ComposeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (self.replyText) {
+        self.tweetTextView.text = self.replyText;
+    }
     
     [self.tweetTextView becomeFirstResponder];
 }
@@ -28,15 +30,27 @@
 }
 
 - (IBAction)postTweet:(id)sender {
-    [[APIManager shared] postStatusWithText:self.tweetTextView.text completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-            NSLog(@"Error composing Tweet: %@", error.localizedDescription);
-        }
-        else{
-            [self.delegate didTweet:tweet];
-            NSLog(@"Compose Tweet Success!");
-        }
-    }];
+    if (self.replyId){
+        [[APIManager shared] reply:self.tweetTextView.text replyId:self.replyId completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error composing Tweet: %@", error.localizedDescription);
+            }
+            else{
+                [self.delegate didTweet:tweet];
+                NSLog(@"Compose Tweet Success!");
+            }
+        }];
+    } else {
+        [[APIManager shared] postStatusWithText:self.tweetTextView.text completion:^(Tweet *tweet, NSError *error) {
+            if(error){
+                NSLog(@"Error composing Tweet: %@", error.localizedDescription);
+            }
+            else{
+                [self.delegate didTweet:tweet];
+                NSLog(@"Compose Tweet Success!");
+            }
+        }];
+    }
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
