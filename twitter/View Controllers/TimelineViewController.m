@@ -22,8 +22,6 @@
 @property (nonatomic, strong) NSMutableArray *tweets;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 @property (nonatomic, strong) NSURL *tappedUrl;
-@property (nonatomic, strong) NSString *replyScreenName;
-@property (nonatomic, strong) NSString *replyId;
 
 @end
 
@@ -45,19 +43,11 @@
 - (void)fetchTweets {
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
-            NSLog(@"Successfully loaded home timeline");
             self.tweets = (NSMutableArray *)tweets;
             [self.tableView reloadData];
-        } else {
-            NSLog(@"Error getting home timeline: %@", error.localizedDescription);
         }
         [self.refreshControl endRefreshing];
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -69,8 +59,6 @@
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
     
     cell.tweet = self.tweets[indexPath.row];
-    self.replyScreenName = cell.tweet.user.screenName;
-    self.replyId = cell.tweet.idStr;
     
     // URL detection
     PatternTapResponder urlTapAction = ^(NSString *tappedString) {
@@ -111,12 +99,17 @@
         WebViewController *webViewController = [segue destinationViewController];
         webViewController.tappedUrl = self.tappedUrl;
     } else if ([segue.identifier isEqual: @"ReplySegue"]) {
+        UITableViewCell *tappedCell = (UITableViewCell *)[[(UIView *)sender superview] superview];
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Tweet *tweet = self.tweets[indexPath.row];
+        
         UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
-        composeController.replyText = [@"@" stringByAppendingString:self.replyScreenName];
-        composeController.replyId = self.replyId;
+        composeController.replyText = [@"@" stringByAppendingString:tweet.user.screenName];
+        composeController.replyId = tweet.idStr;
     } else {
+        // Details view segue
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Tweet *tweet = self.tweets[indexPath.row];

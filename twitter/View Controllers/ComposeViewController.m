@@ -11,6 +11,8 @@
 
 @interface ComposeViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+
 @end
 
 @implementation ComposeViewController
@@ -19,7 +21,7 @@
     [super viewDidLoad];
     
     if (self.replyText) {
-        self.tweetTextView.text = self.replyText;
+        self.tweetTextView.text = [self.replyText stringByAppendingString:@" "];
     }
     
     [self.tweetTextView becomeFirstResponder];
@@ -36,8 +38,9 @@
                 NSLog(@"Error composing Tweet: %@", error.localizedDescription);
             }
             else{
-                [self.delegate didTweet:tweet];
-                NSLog(@"Compose Tweet Success!");
+                if (self.delegate) {
+                    [self.delegate didTweet:tweet];
+                }
             }
         }];
     } else {
@@ -47,7 +50,6 @@
             }
             else{
                 [self.delegate didTweet:tweet];
-                NSLog(@"Compose Tweet Success!");
             }
         }];
     }

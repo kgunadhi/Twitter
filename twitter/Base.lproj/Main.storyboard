@@ -62,7 +62,7 @@
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="37.331334332833585"/>
         </scene>
-        <!--Home Timeline-->
+        <!--Timeline View Controller-->
         <scene sceneID="1Tv-nE-1AW">
             <objects>
                 <viewController storyboardIdentifier="TimelineViewController" modalPresentationStyle="fullScreen" id="Lbl-k5-U4i" customClass="TimelineViewController" sceneMemberID="viewController">
@@ -239,13 +239,30 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ugE-Ul-H9I"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home Timeline" id="MOc-fV-EZE">
+                    <navigationItem key="navigationItem" id="MOc-fV-EZE">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="V8e-Q7-X8g">
                             <connections>
                                 <action selector="didTapLogout:" destination="Lbl-k5-U4i" id="y9X-Dr-FKU"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="edit-icon" id="AAZ-cb-cJa">
+                        <view key="titleView" contentMode="scaleToFill" id="sY5-7o-XIU">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TwitterLogoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="PUL-zr-GHT">
+                                    <rect key="frame" x="-120" y="-64" width="240" height="128"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="2Bc-Z7-cJF"/>
+                                        <constraint firstAttribute="width" constant="45" id="pph-7y-ReH"/>
+                                    </constraints>
+                                </imageView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="PUL-zr-GHT" firstAttribute="centerY" secondItem="sY5-7o-XIU" secondAttribute="centerY" id="5MX-TQ-Gni"/>
+                                <constraint firstItem="PUL-zr-GHT" firstAttribute="centerX" secondItem="sY5-7o-XIU" secondAttribute="centerX" id="PKe-K7-dOP"/>
+                            </constraints>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" title="Compose" image="edit-icon" id="AAZ-cb-cJa">
                             <connections>
                                 <segue destination="Gm7-Eh-dnR" kind="presentation" identifier="ComposeSegue" id="XzR-EZ-vm0"/>
                             </connections>
@@ -260,10 +277,10 @@
             </objects>
             <point key="canvasLocation" x="1659.4202898550725" y="36.160714285714285"/>
         </scene>
-        <!--Details View Controller-->
+        <!--Tweet-->
         <scene sceneID="vw7-4z-I7b">
             <objects>
-                <viewController id="yeP-Bj-qxo" customClass="DetailsViewController" sceneMemberID="viewController">
+                <viewController title="Tweet" id="yeP-Bj-qxo" customClass="DetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ab6-EI-5su">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -312,6 +329,9 @@
                                     <constraint firstAttribute="height" constant="30" id="BtS-F5-9Tu"/>
                                 </constraints>
                                 <state key="normal" image="reply-icon-1"/>
+                                <connections>
+                                    <segue destination="Gm7-Eh-dnR" kind="show" identifier="ReplySegue" id="jX2-z5-br0"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1uI-YI-n8X">
                                 <rect key="frame" x="140" y="281.5" width="30" height="30"/>
@@ -439,7 +459,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bpp-xI-qVr"/>
                     </view>
-                    <navigationItem key="navigationItem" id="VIZ-9o-Ud0"/>
+                    <navigationItem key="navigationItem" title="Tweet" id="VIZ-9o-Ud0"/>
                     <connections>
                         <outlet property="dateLabel" destination="t0F-sc-vKB" id="mqV-G8-0lx"/>
                         <outlet property="favoriteButton" destination="7Fm-Pg-Lt1" id="svT-O3-ZH4"/>
@@ -450,12 +470,13 @@
                         <outlet property="retweetButton" destination="1uI-YI-n8X" id="bLp-eS-WfY"/>
                         <outlet property="retweetLabel" destination="kEF-48-u98" id="OuF-5s-ATg"/>
                         <outlet property="screenNameLabel" destination="2jF-Ur-Vhn" id="58Q-DS-U8i"/>
-                        <outlet property="tweetTextLabel" destination="KpD-rn-kim" id="ZPO-68-3wx"/>
+                        <outlet property="tweetTextLabel" destination="KpD-rn-kim" id="bdL-Qy-IW5"/>
+                        <segue destination="9xr-Zr-GgI" kind="presentation" identifier="WebSegue" id="iM9-Vl-Yvi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eyt-M3-sjU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1229" y="763"/>
+            <point key="canvasLocation" x="1164" y="763"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="i3v-ce-qhR">
@@ -465,9 +486,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <wkWebView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="13K-7q-mnE">
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="13K-7q-mnE">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -476,6 +496,12 @@
                             </wkWebView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="13K-7q-mnE" firstAttribute="top" secondItem="YWo-gG-dUW" secondAttribute="top" id="0Hr-gl-xhc"/>
+                            <constraint firstItem="13K-7q-mnE" firstAttribute="trailing" secondItem="YWo-gG-dUW" secondAttribute="trailing" id="RkV-Ke-8io"/>
+                            <constraint firstAttribute="bottom" secondItem="13K-7q-mnE" secondAttribute="bottom" id="VU0-1I-POn"/>
+                            <constraint firstItem="13K-7q-mnE" firstAttribute="leading" secondItem="YWo-gG-dUW" secondAttribute="leading" id="pAF-jH-fHY"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="YWo-gG-dUW"/>
                     </view>
                     <connections>
@@ -484,7 +510,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CiN-7M-Evv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2221.739130434783" y="762.72321428571422"/>
+            <point key="canvasLocation" x="2157" y="763"/>
         </scene>
         <!--Compose View Controller-->
         <scene sceneID="LgP-Kp-AJN">
@@ -528,7 +554,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="tweetTextView" destination="8eo-AA-op8" id="nxk-wv-7qX"/>
+                        <outlet property="tweetTextView" destination="8eo-AA-op8" id="VKg-QE-lXF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GhF-XA-WMZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -558,6 +584,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="Gm7-Eh-dnR" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" id="Kvt-2z-P7X"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="XRn-tr-mqS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -574,6 +601,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="IKV-I5-5DF"/>
+        <segue reference="RTD-Mc-1dU"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
