@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="c3O-zL-0ZQ">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -246,11 +246,12 @@
                                 <action selector="didTapLogout:" destination="Lbl-k5-U4i" id="y9X-Dr-FKU"/>
                             </connections>
                         </barButtonItem>
-                        <view key="titleView" contentMode="scaleToFill" id="sY5-7o-XIU">
+                        <view key="titleView" contentMode="scaleToFill" misplaced="YES" id="sY5-7o-XIU">
+                            <rect key="frame" x="82.5" y="0.0" width="264.5" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TwitterLogoBlue" translatesAutoresizingMaskIntoConstraints="NO" id="PUL-zr-GHT">
-                                    <rect key="frame" x="-120" y="-64" width="240" height="128"/>
+                                    <rect key="frame" x="477.5" y="477.5" width="45" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="2Bc-Z7-cJF"/>
                                         <constraint firstAttribute="width" constant="45" id="pph-7y-ReH"/>
