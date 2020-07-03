@@ -58,8 +58,8 @@ GIF created with [Recordit](https://recordit.co/).
 List an 3rd party libraries, icons, graphics, or other assets you used in your app.
 
 - [AFNetworking](https://github.com/AFNetworking/AFNetworking) - networking task library
-- [BDBOAuth1Manager] (https://github.com/bdbergeron/BDBOAuth1Manager) - OAuth 1.0a library
-- [DateTools] (https://github.com/MatthewYork/DateTools) - date and time handling library
+- [BDBOAuth1Manager](https://github.com/bdbergeron/BDBOAuth1Manager) - OAuth 1.0a library
+- [DateTools](https://github.com/MatthewYork/DateTools) - date and time handling library
 
 ## License
 
