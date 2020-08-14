@@ -10,7 +10,7 @@
 #import "APIManager.h"
 #import "WebViewController.h"
 #import "UIImageView+AFNetworking.h"
-#import "ResponsiveLabel.h"
+#import <ResponsiveLabel.h>
 
 @implementation TweetCell
 

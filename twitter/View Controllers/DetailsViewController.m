@@ -11,7 +11,7 @@
 #import "WebViewController.h"
 #import "ComposeViewController.h"
 #import "UIImageView+AFNetworking.h"
-#import "ResponsiveLabel.h"
+#import <ResponsiveLabel.h>
 
 @interface DetailsViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *profileView;
